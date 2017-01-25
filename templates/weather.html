@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<META HTTP-EQUIV="refresh" CONTENT="300">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/static/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/static/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/static/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/static/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/static/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/static/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/static/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/static/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+	<link rel="manifest" href="/static/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/static/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+    <title>Weather Monitor</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom style -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <!-- Google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Exo+2:300,400" rel="stylesheet">
+	<link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+      
+    <div class="container">
+          <div class="row">
+              
+                <div class="col-md-4 text-center text-primary">
+                    <h1><small>{{ tedencytemp }} &nbsp; </small>{{ temp }}<small> &deg;C &nbsp;</small></h1>
+                </div>
+              	
+                <div class="col-md-4 text-center text-primary">
+                    <h1><small>{{ tendencypres }} &nbsp; </small>{{ pres }}<small> hPa</small></h1>
+                </div>
+              
+                <div class="col-md-4 text-center text-primary">
+                    <h1><small>{{ tendencyhumi }} &nbsp; </small>{{ humi }}<small> % RH </small></h1>
+                </div>
+        </div>
+        
+         
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="load-bar">
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                </div>            
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-center text-uppercase timestamp" id="time">
+                <p>{{ time }}</p>            
+            </div>
+        </div>
+	   
+        <div class="row">
+            <div class="col-md-12 text-center timestamp" id="history">
+
+		<i class="fa fa-angle-down fa-2x" aria-hidden="true" data-toggle="collapse" data-target="#minmax" id="log"></i>
+		
+  		<div id="minmax" class="collapse"><br>
+                <div class="row text-primary">
+                    <div class="col-md-4 text-center">
+                        <p1>min {{ mintemp }} &deg;C &nbsp;{{ mintemptime }}</p1>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <p1>min {{ minpres }} hPa &nbsp;{{ minprestime }}</p1>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <p1>min {{ minhumi }} % RH &nbsp;{{ minhumitime }}</p1>
+                    </div>
+                </div>
+                <div class="row text-danger">
+                    <div class="col-md-4 text-center">
+                        <p1>max {{ maxtemp }} &deg;C &nbsp;{{ maxtemptime }}</p1>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <p1>max {{ maxpres }} hPa &nbsp;{{ maxprestime }}</p1>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <p1>max {{ maxhumi }} % RH &nbsp;{{ maxhumitime }}</p1>
+                    </div>
+                </div>
+                <div class="row">
+                        <p1><br>Last Reset: {{ lastreset }} &nbsp; &nbsp; <i class="fa fa-times fa-lg" aria-hidden="true" id="del"></i></p1>
+		 </div>		
+ 		</div>            
+            </div>
+        </div>
+
+        
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script>         
+    $(document).ready(function(){
+       $("#time").delay(800).hide().fadeIn(500);
+       $("#history").delay(900).hide().fadeIn(500);
+	$('#log').click(function(){
+          $("#log").toggleClass("fa-angle-up fa-angle-down");
+       });
+    }); 
+    </script>
+  </body>
+</html>

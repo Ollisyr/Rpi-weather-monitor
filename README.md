@@ -4,7 +4,7 @@
 
 ### Connecting Hardware
 This weather application use BME280 sensor from  Bosch Sensortec and the official datasheet includes all the technical details:
-https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-11.pdf
+https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME280_DS001-12.pdf
 
 | Sensor PCB        | Decription           | GPIO header pins  |
 | ------------- |:-------------:| :-----:|
@@ -23,3 +23,4 @@ In order to have a scheduled tasks run edit crontab: <br>
 And add following lines: <br>
 ` 0  *    * * *   root    sudo python /home/pi/bme280.py ` <br>
 ` 5,15,25,35,45,55 * * * *   root    sudo python /home/pi/minmax.py ` <br>
+You can also add initminmax.py to crontab, if you want periodically reset stored minimum and maximum values.<br>
